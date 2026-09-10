@@ -1,63 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Engineering AI — AI for Transport Systems</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:," />
-</head>
-<body>
-  <div class="container">
-    <header class="site-header">
-      <nav class="navbar">
-        <span class="brand">engineering-ai.space</span>
-        <span class="sep"></span>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="about.html#contact">Contact</a>
-      </nav>
-    </header>
+  <head>
+    <title>Engineering AI — AI for Transport Systems</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Engineering AI: artificial intelligence for transport infrastructure and fleets. Adaptive traffic lights, video analytics, predictive maintenance, MLOps." />
+    <link rel="shortcut icon" href="images/xterm.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+          <nav class="navbar">
+            <div class="navbar__first">
+              <ul class="navbar__list borders">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                  <button class="theme-toggle transparent">
+                    <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22 3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z" />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="navbar__separator"></div>
+            <div class="navbar__last">
+              <ul class="navbar__list borders menu--desktop">
+                <li><a href="about.html">About</a></li>
+                <li><a href="about.html#contact">Contact</a></li>
+              </ul>
+              <ul class="menu menu--mobile">
+                <li class="menu-trigger">===</li>
+                <li>
+                  <ul class="menu-dropdown">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="about.html#contact">Contact</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
 
-    <div class="cli">
-      <span class="prompt">engineering-ai@transport:~$</span>
-      <span class="cmd"> deploy -i ai.solutions -t transport</span>
-    </div>
+        <main class="site-main">
+          <article>
+            <h1>AI for Transport Systems</h1>
+            <p class="post-description">We put artificial intelligence to work on the road, rail and fleet. Adaptive signal control, computer-vision safety analytics, predictive fleet maintenance and MLOps pipelines — built for transport operators.</p>
 
-    <h1>AI for Transport Systems</h1>
-    <p>We put artificial intelligence to work on the road, rail and fleet. Our team builds adaptive traffic lights, computer-vision safety analytics, predictive fleet maintenance, and MLOps pipelines designed for transport operators.</p>
+            <div class="highlight-wrapper">
+              <div class="highlight">
+                <pre class="chroma"><code><span class="line"><span class="cl"><span class="prompt">visitor@engineering-ai:~$</span> ./deploy --use-cases</span></span></code></pre>
+                <pre class="chroma"><code><span class="line"><span class="cl">[1] adaptive-traffic-lights
+[2] video-analytics-safety
+[3] predictive-fleet-maintenance
+[4] traffic-simulation-digital-twin
+[5] data-pipelines-mlops
+[6] pilot-audit</span></span></code></pre>
+              </div>
+            </div>
 
-    <section class="entry">
-      <h2>Services</h2>
-      <ul>
-        <li><strong>Adaptive Traffic Lights</strong> — computer vision + RL signal timing that reduces congestion at intersections.</li>
-        <li><strong>Video Analytics &amp; Safety</strong> — incident detection, pedestrian risk scoring, near-miss analytics from existing CCTV.</li>
-        <li><strong>Predictive Fleet Maintenance</strong> — telemetry-driven models that flag component failures before downtime.</li>
-        <li><strong>Traffic Simulation &amp; Digital Twin</strong> — virtual replicas of networks for scenario planning and AI training.</li>
-        <li><strong>Data Pipelines &amp; MLOps</strong> — ingestion, labelling, training, deployment and monitoring for transport operators.</li>
-        <li><strong>Pilot Audit &amp; Strategy</strong> — a 2–4 week assessment to choose the right first AI use case.</li>
-      </ul>
-    </section>
+            <h2>Services</h2>
+            <ul>
+              <li><strong>Adaptive Traffic Lights</strong> — computer vision + RL signal timing that cuts intersection delay.</li>
+              <li><strong>Video Analytics &amp; Safety</strong> — incident detection, pedestrian risk scoring, near-miss analytics on existing CCTV.</li>
+              <li><strong>Predictive Fleet Maintenance</strong> — telemetry models that flag component failures before downtime.</li>
+              <li><strong>Traffic Simulation &amp; Digital Twin</strong> — virtual networks for scenario planning and model training.</li>
+              <li><strong>Data Pipelines &amp; MLOps</strong> — ingestion, labeling, training, deployment and monitoring.</li>
+              <li><strong>Pilot Audit</strong> — a 2–4 week assessment to pick the right first use case.</li>
+            </ul>
 
-    <section class="entry">
-      <h2>Why engineering-ai.space</h2>
-      <p>Small, focused team. Experience with real-time video, sensor fusion, edge devices on vehicles and road-side infrastructure. We deploy on-prem when data privacy demands it.</p>
-    </section>
+            <h2>Get started</h2>
+            <p>Tell us about the corridor, intersection or fleet you want to improve — we reply within one business day.</p>
+            <div class="buttons">
+              <a href="mailto:contact@engineering-ai.space" class="button">contact@engineering-ai.space</a>
+            </div>
+          </article>
+        </main>
 
-    <section class="entry">
-      <h2>Get started</h2>
-      <p>Tell us about the corridor, intersection or fleet you want to improve. We reply within 1 business day.</p>
-      <div class="btn-row">
-        <a class="btn btn-primary" href="mailto:contact@engineering-ai.space">Email us</a>
+        <footer class="site-footer">
+          <div class="copyright">
+            <p>© 2026 Engineering AI</p>
+            <nav class="navbar">
+              <ul class="navbar__list">
+                <li><a href="about.html">About</a></li>
+              </ul>
+            </nav>
+          </div>
+          <p class="themeinfo">Theme: <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>, rendered as pure static — no build step.</p>
+        </footer>
       </div>
-    </section>
-
-    <footer class="site-footer">
-      <p>© <span id="year">2026</span> Engineering AI · transport-focused AI consultancy · <a href="about.html">About</a></p>
-    </footer>
-  </div>
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
-</body>
+    </div>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
 </html>

@@ -1,45 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Engineering AI</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:," />
-</head>
-<body>
-  <div class="container">
-    <header class="site-header">
-      <nav class="navbar">
-        <span class="brand">engineering-ai.space</span>
-        <span class="sep"></span>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="about.html#contact">Contact</a>
-      </nav>
-    </header>
+  <head>
+    <title>About — Engineering AI</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="About Engineering AI — AI consultancy for transport." />
+    <link rel="shortcut icon" href="images/xterm.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Roboto+Slab:wght@300;400;500&family=Ubuntu+Mono:ital@0;1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="theme-container">
+      <div class="container center">
+        <header class="site-header">
+          <nav class="navbar">
+            <div class="navbar__first">
+              <ul class="navbar__list borders">
+                <li><a href="index.html">Home</a></li>
+                <li>
+                  <button class="theme-toggle transparent">
+                    <svg class="theme-toggler" width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22 41C32.4934 41 41 32.4934 41 22C41 11.5066 32.4934 3 22 3C11.5066 3 3 11.5066 3 22C3 32.4934 11.5066 41 22 41ZM7 22C7 13.7157 13.7157 7 22 7V37C13.7157 37 7 30.2843 7 22Z" />
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div class="navbar__separator"></div>
+            <div class="navbar__last">
+              <ul class="navbar__list borders menu--desktop">
+                <li><a href="about.html">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+              <ul class="menu menu--mobile">
+                <li class="menu-trigger">===</li>
+                <li>
+                  <ul class="menu-dropdown">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </header>
 
-    <h1>About Engineering AI</h1>
-    <p>Engineering AI is a specialist consultancy applying artificial intelligence to transport infrastructure and fleets. We design, deploy and operate AI systems that work with existing cameras, sensors and control equipment.</p>
+        <main class="site-main">
+          <article>
+            <h1>About Engineering AI</h1>
+            <p>Engineering AI is a specialist consultancy applying artificial intelligence to transport infrastructure and fleets. We design, deploy and operate AI systems on top of existing cameras, sensors and control equipment.</p>
 
-    <h2>What we do</h2>
-    <ul>
-      <li>Adaptive intersections and corridor optimization</li>
-      <li>Computer vision and multi-camera safety analytics</li>
-      <li>Predictive maintenance on buses, trams and rail rolling stock</li>
-      <li>Private, on-premise AI stacks for operators</li>
-      <li>Integration with SCADA, C-ITS and existing IoT</li>
-    </ul>
+            <h2>What we work on</h2>
+            <ul>
+              <li>Adaptive intersections &amp; corridor optimization</li>
+              <li>Computer vision and multi-camera safety analytics</li>
+              <li>Predictive maintenance for buses, trams and rolling stock</li>
+              <li>Private, on-premise AI stacks for operators</li>
+              <li>Integration with SCADA, C-ITS and existing IoT</li>
+            </ul>
 
-    <h2>Approach</h2>
-    <p>We start with measured pilots, no deck-sitting. Use-cases that deliver a live reduction in delay, collisions or OPEX within 3–6 months. Then scale horizontally with open tooling and strict versioned models.</p>
+            <h2>Approach</h2>
+            <p>Measured pilots first — use cases that deliver live reduction in delay, collisions or OPEX within 3–6 months. Then scale horizontally with open tooling and strict, versioned models.</p>
 
-    <h2 id="contact">Contact</h2>
-    <p>Email <a href="mailto:contact@engineering-ai.space">contact@engineering-ai.space</a> to arrange a pilot or request a capabilities brief.</p>
+            <h2 id="contact">Contact</h2>
+            <p>Email <a href="mailto:contact@engineering-ai.space">contact@engineering-ai.space</a> to arrange a pilot or request a capabilities brief.</p>
+          </article>
+        </main>
 
-    <footer class="site-footer">
-      <p>© 2026 Engineering AI · <a href="index.html">Home</a></p>
-    </footer>
-  </div>
-</body>
+        <footer class="site-footer">
+          <div class="copyright">
+            <p>© 2026 Engineering AI</p>
+            <nav class="navbar">
+              <ul class="navbar__list">
+                <li><a href="index.html">Home</a></li>
+              </ul>
+            </nav>
+          </div>
+          <p class="themeinfo">Theme: <a href="https://manid2.github.io/hugo-xterm/">Hugo Xterm</a>, rendered as pure static.</p>
+        </footer>
+      </div>
+    </div>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
 </html>
