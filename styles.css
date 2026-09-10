@@ -1,0 +1,51 @@
+/* Hugo-xterm static theme — minimal vanilla CSS (no Sass, no Hugo placeholders) for engineering-ai.space
+   Dark "terminal look". Light theme preserved with data-theme="light". */
+:root {
+  --bg: #0d1117;
+  --fg: #ecf0f1;
+  --muted: #a0aab4;
+  --accent: #12b981;
+  --link: #5ac8fa;
+  --border: #0f3a2d;
+  --code-bg: #1d2632;
+  --font-body: "Roboto Mono", "Courier New", monospace;
+  --font-head: "Courier New", monospace;
+}
+[data-theme="light"] {
+  --bg: #f6f8f9;
+  --fg: #151932;
+  --muted: #6e7a8a;
+  --accent: #02735f;
+  --link: #0a84ff;
+  --border: #b9e7d8;
+  --code-bg: #eaedf0;
+}
+* { box-sizing: border-box }
+html, body { margin: 0; padding: 0; font-family: var(--font-body); font-size: 16px; line-height: 1.6; background: var(--bg); color: var(--fg); }
+a { color: var(--link); text-decoration: none }
+a:hover { text-decoration: underline }
+.container { max-width: 860px; margin: 0 auto; padding: 24px 20px; }
+.navbar { display: flex; align-items: baseline; font-size: 1rem; }
+.navbar .brand { font-weight: 700; color: var(--accent); font-family: var(--font-head); white-space: nowrap }
+.navbar .sep { flex: 1 }
+.navbar a { padding: 0 8px }
+h1, h2, h3 { font-family: var(--font-head); color: var(--fg); border-left: 4px solid var(--accent); padding-left: 12px; margin: 22px 0 14px }
+h1 { font-size: 2rem; border-color: var(--accent) }
+h2 { font-size: 1.4rem }
+h3 { font-size: 1.15rem }
+p { margin: 14px 0 }
+code, pre { font-family: var(--font-body); background: var(--code-bg); padding: 2px 6px; border-radius: 4px }
+pre { padding: 14px; overflow-x: auto }
+.cli { margin: 18px 0; padding: 16px; background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px; color: var(--fg) }
+.cli .prompt, .cli .ps { color: var(--accent); font-weight: 700 }
+.cli .cmd { color: var(--fg) }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap }
+.btn { padding: 6px 14px; border: 1px solid var(--accent); color: var(--fg); background: transparent; font-family: inherit; border-radius: 8px; cursor: pointer }
+.btn:hover { background: var(--accent); color: var(--bg) }
+.btn-primary { background: var(--accent); color: var(--bg) }
+ul li, ol li { margin: 8px 0 }
+.site-header { margin: 8px 0 24px }
+.site-footer { margin: 40px 0 0; padding: 20px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem }
+.entry h3, .entry .h { margin: 12px 0 4px }
+.entry { margin: 24px 0 }
+@media (max-width: 640px) { .navbar { flex-wrap: wrap } }
