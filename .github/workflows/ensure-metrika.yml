@@ -3,6 +3,8 @@ on:
   push:
     branches: ["main"]
     paths: ["**/*.html"]
+  schedule:
+    - cron: "17 3 * * *"
   workflow_dispatch:
 
 permissions:
@@ -21,8 +23,8 @@ jobs:
           git config user.email "metrika-bot@users.noreply.github.com"
           if [ -n "$(git status --porcelain)" ]; then
             git add -A
-            git commit -m "chore: inject Yandex.Metrika into regenerated HTML"
+            git commit -m "chore: restore Yandex.Metrika in regenerated HTML"
             git push
           else
-            echo "nothing to inject"
+            echo "tracking present, nothing to do"
           fi
