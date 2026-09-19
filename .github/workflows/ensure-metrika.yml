@@ -1,0 +1,28 @@
+name: Ensure Yandex.Metrika on HTML
+on:
+  push:
+    branches: ["main"]
+    paths: ["**/*.html"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  inject:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject Metrika (idempotent)
+        run: python3 scripts/inject_metrika.py --cid 112548629 --root .
+      - name: Commit if changed
+        run: |
+          git config user.name "metrika-bot"
+          git config user.email "metrika-bot@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "chore: inject Yandex.Metrika into regenerated HTML"
+            git push
+          else
+            echo "nothing to inject"
+          fi
