@@ -1,0 +1,52 @@
+# Направления работы. Ключ верхнего уровня = код языка (ru/en),
+# шаблон выбирает ветку по site.Language.Lang: index hugo.Data.services $lang
+
+ru:
+  - title: Автономность под ключ
+    text: Машинное зрение и лидары, предиктивная прокладка маршрутов, точное управление движением в живой обстановке складов и производственных цехов.
+    tags: [perception, SLAM, planning]
+
+  - title: Роботизированные платформы
+    text: Роботы-курьеры последней мили, автономные складские тележки (AMR/AGV), транспортные модули для внутризаводской логистики.
+    tags: [AMR, AGV, ROS 2]
+
+  - title: Диспетчеризация роев
+    text: Единый центр управления транспортной системой из сотен роботов — постановка задач, оптимизация потоков, разъезд без коллизий в реальном времени.
+    tags: [fleet control, multi-agent]
+
+  - title: V2X и умное здание
+    text: Подключаем роботов к экосистеме объекта — автоматические ворота, грузовые лифты, конвейеры, системы WMS/WCS/ERP.
+    tags: [V2X, WMS, WCS]
+
+  - title: Безопасность и валидация (SOTIF)
+    text: Цифровые двойники и симуляция, сценарные испытания, стандарты функциональной безопасности для совместной работы с людьми.
+    tags: [SOTIF, ISO 21448, digital twin]
+
+  - title: Защищённый жизненный цикл ИИ
+    text: Дообучение моделей на боевых данных, управление датасетами, безопасные OTA-обновления прошивок и нейросетей по всему парку.
+    tags: [MLOps, datasets, OTA]
+
+en:
+  - title: Turnkey autonomy
+    text: Machine vision and lidar, predictive route planning, precise motion control in live warehouse and factory environments.
+    tags: [perception, SLAM, planning]
+
+  - title: Robotic platforms
+    text: Last-mile delivery robots, autonomous warehouse carts (AMR/AGV), transport modules for in-plant logistics.
+    tags: [AMR, AGV, ROS 2]
+
+  - title: Swarm dispatching
+    text: A single control center for a transport system of hundreds of robots — task assignment, flow optimization, real-time collision-free traffic.
+    tags: [fleet control, multi-agent]
+
+  - title: V2X and smart building
+    text: We connect robots to the facility ecosystem — automatic gates, freight elevators, conveyors, WMS/WCS/ERP systems.
+    tags: [V2X, WMS, WCS]
+
+  - title: Safety and validation (SOTIF)
+    text: Digital twins and simulation, scenario testing, functional safety standards for collaborative operation with humans.
+    tags: [SOTIF, ISO 21448, digital twin]
+
+  - title: Secure AI lifecycle
+    text: Model fine-tuning on field data, dataset management, safe OTA updates of firmware and neural networks across the whole fleet.
+    tags: [MLOps, datasets, OTA]

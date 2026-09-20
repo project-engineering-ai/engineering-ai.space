@@ -1,0 +1,89 @@
+{{- /* ===================================================================
+       <head>: метаданные, SEO/hreflang, стили, счётчики.
+
+       Заменяет partials/head.html темы — иначе подключился бы бандл темы
+       (particles + SPA-навигация), рассчитанный на nomad-блог.
+       =================================================================== */ -}}
+
+{{- $lang := site.Language.Lang -}}
+{{- $site := strings.TrimSuffix "/" site.BaseURL -}}
+
+{{- /* Путь текущей страницы без языкового префикса: /en/about/ -> /about/ */ -}}
+{{- $base := .RelPermalink -}}
+{{- if eq $lang "en" -}}{{- $base = strings.TrimPrefix "/en" $base -}}{{- end -}}
+{{- if eq $base "" -}}{{- $base = "/" -}}{{- end -}}
+
+{{- /* Абсолютные адреса обеих версий страницы (RU — в корне, EN — под /en/). */ -}}
+{{- $urlRu := "" -}}
+{{- $urlEn := "" -}}
+{{- if eq $base "/" -}}
+  {{- $urlRu = printf "%s/" $site -}}
+  {{- $urlEn = printf "%s/en/" $site -}}
+{{- else -}}
+  {{- $urlRu = printf "%s%s" $site $base -}}
+  {{- $urlEn = printf "%s/en%s" $site $base -}}
+{{- end -}}
+{{- $canonical := cond (eq $lang "en") $urlEn $urlRu -}}
+
+{{- $title := "" -}}
+{{- if .IsHome -}}
+  {{- $title = site.Title -}}
+{{- else -}}
+  {{- $title = printf "%s — %s" .Title site.Params.brand -}}
+{{- end -}}
+{{- $desc := .Params.description | default .Description | default site.Params.description -}}
+
+<meta name="description" content="{{ $desc }}">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="{{ $canonical }}">
+
+{{/* hreflang-тройка: RU — основной (x-default), EN — зеркало под /en/. */}}
+<link rel="alternate" hreflang="ru" href="{{ $urlRu }}">
+<link rel="alternate" hreflang="en" href="{{ $urlEn }}">
+<link rel="alternate" hreflang="x-default" href="{{ $urlRu }}">
+
+<title>{{ $title }}</title>
+
+{{/* Open Graph / Twitter */}}
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ $canonical }}">
+<meta property="og:site_name" content="{{ site.Params.brand }}">
+<meta property="og:locale" content="{{ site.Params.ogLocale | default "ru_RU" }}">
+<meta property="og:image" content="{{ $site }}/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ $desc }}">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Roboto+Slab:wght@400;500&family=Ubuntu+Mono&display=swap">
+
+{{/* Стили: assets/scss/main.scss сайта (замещает файл темы) → минификация → SRI. */}}
+{{- $css := resources.Get "scss/main.scss" | css.Sass (dict "outputStyle" "compressed") | resources.Fingerprint -}}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+
+{{/* Структурированные данные: организация. Собираем dict и сериализуем
+     целиком через jsonify — иначе кавычки в значениях придётся экранировать
+     вручную и JSON становится невалидным. */}}
+{{- $orgData := dict
+      "@context" "https://schema.org"
+      "@type" "Organization"
+      "name" site.Params.brand
+      "url" (cond (eq $lang "en") (printf "%s/en/" $site) (printf "%s/" $site))
+      "email" site.Params.email
+      "description" site.Params.description
+      "knowsAbout" (slice "autonomous mobile robots" "AMR" "AGV" "intralogistics" "V2X" "SOTIF" "MLOps")
+-}}
+<script type="application/ld+json">{{ $orgData | jsonify | safeJS }}</script>
+
+{{/* Гео-роутинг: посетитель из РФ → RU, остальные → EN. Скрипт лежит в
+     static/geo-lang.js и опирается на hreflang-ссылки, объявленные выше. */}}
+<script defer src="/geo-lang.js"></script>
+
+{{ partial "yandex-metrika.html" . }}

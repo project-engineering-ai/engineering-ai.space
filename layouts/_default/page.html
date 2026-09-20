@@ -1,0 +1,4 @@
+{{- /* Обычная страница: вид вынесен в partial, чтобы его же использовали
+       _default/list.html и about/list.html (шаблон секции about нужен
+       отдельно — тема объявляет свой путь layouts/about/list.html). */ -}}
+{{ define "main" }}{{ partial "page-prose.html" . }}{{ end }}

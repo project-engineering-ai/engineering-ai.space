@@ -1,0 +1,21 @@
+# Этапы запуска. Ключ верхнего уровня = код языка (ru/en).
+
+ru:
+  - title: Аудит площадки и экономика
+    text: Смотрим существующие потоки, замеряем ручные операции и считаем, сколько автономности окупается именно здесь. На выходе — зона пилота и ожидаемый срок окупаемости.
+
+  - title: Пилот в одной зоне
+    text: Отрабатываем систему в симуляции на цифровом двойнике, затем на реальном участке. Проверяем восприятие, маршруты и разъезд с людьми при штатных и граничных сценариях.
+
+  - title: Масштабирование на парк
+    text: Разворачиваем диспетчеризацию, интегрируемся с WMS/WCS/ERP, включаем версионирование моделей и безопасные OTA-обновления по всему парку — с валидацией по SOTIF.
+
+en:
+  - title: Site audit and economics
+    text: We study existing flows, measure manual operations and calculate what autonomy actually pays for on this site. The output is a pilot zone and an expected payback period.
+
+  - title: Pilot in one zone
+    text: We validate the system in simulation on a digital twin, then on the real area. Perception, routing and human-shared traffic are tested against nominal and edge-case scenarios.
+
+  - title: Scaling to the fleet
+    text: We roll out dispatching, integrate with WMS/WCS/ERP, and enable model versioning and safe OTA updates across the fleet — validated against SOTIF.

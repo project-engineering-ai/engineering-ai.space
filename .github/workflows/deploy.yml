@@ -1,0 +1,78 @@
+# Сборка сайта Hugo и публикация на GitHub Pages.
+#
+# ВАЖНО: Pages должен быть переведён в режим workflow (build_type=workflow).
+# В режиме legacy GitHub собирает сайт Jekyll'ом из ветки main, а у Hugo-сайта
+# нет собранного index.html в репозитории — это даёт 404 на всех edge'ах.
+#
+# Секретов не требуется: публикация идёт через OIDC (id-token: write).
+
+name: Deploy Hugo site to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Версия зафиксирована: сборка локально и в CI должна совпадать,
+      # иначе расхождение шаблонов/минификации вылезет только на проде.
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.158.0"
+          extended: true
+
+      - name: Build
+        run: hugo --gc --minify --baseURL "https://engineering-ai.space/"
+
+      # Гейт: без CNAME GitHub Pages потерял бы кастомный домен, а без
+      # geo-lang.js упал бы гео-роутинг RU/EN. Оба файла обязаны быть в артефакте.
+      - name: Verify publish artifact
+        run: |
+          set -euo pipefail
+          test -f public/CNAME || { echo "::error::public/CNAME missing — custom domain would be dropped"; exit 1; }
+          test -f public/geo-lang.js || { echo "::error::public/geo-lang.js missing — geo routing broken"; exit 1; }
+          test -f public/robots.txt || { echo "::error::public/robots.txt missing"; exit 1; }
+          test -f public/index.html || { echo "::error::public/index.html missing — RU home not built"; exit 1; }
+          test -f public/en/index.html || { echo "::error::public/en/index.html missing — EN home not built"; exit 1; }
+          grep -q "112548629" public/index.html || { echo "::error::Yandex.Metrika counter missing"; exit 1; }
+          grep -q 'hreflang="en"' public/index.html || { echo "::error::hreflang trio missing"; exit 1; }
+          echo "artifact OK: $(find public -type f | wc -l) files"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./public"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

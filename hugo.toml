@@ -1,0 +1,130 @@
+###############################################################################
+# Engineering AI — сайт на Hugo (тема nomad-tech).
+# RU — в корне (сохраняет накопленный SEO-вес), EN — зеркало под /en/.
+###############################################################################
+
+baseURL = "https://engineering-ai.space/"
+title = "Engineering AI"
+theme = "nomad-tech"
+timeZone = "Europe/Moscow"
+enableRobotsTXT = false          # robots.txt лежит статиком в static/ (с явным Sitemap)
+enableGitInfo = false
+hasCJKLanguage = false
+
+defaultContentLanguage = "ru"
+defaultContentLanguageInSubdir = false   # RU в корне, EN в /en/
+disableKinds = ["taxonomy", "term"]      # блог-таксономии не используем
+
+[pagination]
+  pagerSize = 10
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+  [markup.goldmark.renderer]
+    unsafe = false                # сырой HTML в контенте запрещён (XSS-гигиена)
+
+[outputs]
+  home = ["HTML"]
+  section = ["HTML"]
+  page = ["HTML"]
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.7
+
+# sitemap-индекс из двух языковых файлов не нужен: robots.txt указывает на
+# конкретный /sitemap.xml, а раскладку по языкам делают hreflang-альтернативы.
+# Сами HTML-страницы при этом остаются единственным output-форматом.
+
+[params]
+  # --- бренд ---------------------------------------------------------------
+  brand = "ENGINEERING AI"
+  logo = "ENGINEERING AI"
+  email = "info@engineering-ai.space"
+  description = "Engineering AI — разработка и внедрение ИИ в роботизированные платформы и интралогистику: AMR/AGV, роботы-курьеры, оркестрация роев, V2X, валидация SOTIF, защищённый жизненный цикл моделей."
+
+  # --- аналитика ----------------------------------------------------------
+  # Yandex.Metrika: тот же счётчик, что и на прежней версии сайта (не теряем историю).
+  yandexMetrika = "112548629"
+
+  # --- оформление ---------------------------------------------------------
+  accent = "blue"               # blue | teal  (акцентная схема)
+  showThemeToggle = true
+
+[languages]
+  [languages.ru]
+    locale = "ru-RU"
+    label = "Русский"
+    contentDir = "content"          # RU — в корне сайта (сохранённый SEO-вес)
+    title = "Engineering AI — ИИ для роботов и автономных транспортных систем"
+    weight = 1
+    [languages.ru.params]
+      langSwitchLabel = "EN"
+      ogLocale = "ru_RU"
+
+  [languages.en]
+    locale = "en-US"
+    label = "English"
+    contentDir = "content.en"       # EN — зеркало под /en/
+    title = "Engineering AI — AI for robots and autonomous transport systems"
+    weight = 2
+    [languages.en.params]
+      langSwitchLabel = "RU"
+      ogLocale = "en_US"
+
+[menu]
+  [[menu.main]]
+    name = "Направления"
+    url = "/#services"
+    weight = 10
+    [menu.main.params]
+      lang = "ru"
+  [[menu.main]]
+    name = "Как мы запускаем"
+    url = "/#process"
+    weight = 20
+    [menu.main.params]
+      lang = "ru"
+  [[menu.main]]
+    name = "О компании"
+    url = "/about/"
+    weight = 30
+    [menu.main.params]
+      lang = "ru"
+  [[menu.main]]
+    name = "Контакты"
+    url = "/#contact"
+    weight = 40
+    [menu.main.params]
+      lang = "ru"
+
+  [[menu.main]]
+    name = "Capabilities"
+    url = "/en/#services"
+    weight = 10
+    [menu.main.params]
+      lang = "en"
+  [[menu.main]]
+    name = "How we start"
+    url = "/en/#process"
+    weight = 20
+    [menu.main.params]
+      lang = "en"
+  [[menu.main]]
+    name = "Company"
+    url = "/en/about/"
+    weight = 30
+    [menu.main.params]
+      lang = "en"
+  [[menu.main]]
+    name = "Contact"
+    url = "/en/#contact"
+    weight = 40
+    [menu.main.params]
+      lang = "en"
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.148.0"

@@ -1,0 +1,29 @@
+{{- /* ===================================================================
+       Универсальный шаблон прозаической страницы: хлебные крошки + текст.
+
+       Вынесено в partial, потому что один и тот же вид нужен сразу трём
+       точкам входа:
+         _default/page.html  — обычная страница (kind=page)
+         _default/list.html  — любая секция
+         about/list.html     — секция about
+       Последняя нужна отдельно: тема nomad-tech объявляет СВОЙ
+       layouts/about/list.html, а специфичный путь темы перебивает
+       проектный _default/list.html. Без файла с тем же путём страница
+       «О компании» рендерилась бы терминальным шаблоном темы, чьи классы
+       в новой таблице стилей отсутствуют.
+       =================================================================== */ -}}
+{{- $home := cond (eq site.Language.Lang "en") "/en/" "/" -}}
+<div class="page">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="breadcrumbs">
+      <a href="{{ $home }}">{{ i18n "home" }}</a>
+      <span aria-hidden="true">/</span>
+      <span>{{ .Title }}</span>
+    </nav>
+
+    <div class="prose">
+      <h1>{{ .Title }}</h1>
+      {{ .Content }}
+    </div>
+  </div>
+</div>

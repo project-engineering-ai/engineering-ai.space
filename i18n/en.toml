@@ -1,0 +1,64 @@
+# UI strings (EN). Keys must match ru.toml.
+
+[home]
+other = "Home"
+
+[skip_to_content]
+other = "Skip to content"
+
+[main_navigation]
+other = "Main navigation"
+
+[switch_language]
+other = "Switch language"
+
+[toggle_theme]
+other = "Toggle theme"
+
+[toggle_menu]
+other = "Menu"
+
+[hero_cta_primary]
+other = "Discuss a pilot"
+
+[hero_cta_secondary]
+other = "What we do"
+
+[services_eyebrow]
+other = "Capabilities"
+
+[services_title]
+other = "What we do"
+
+[services_lead]
+other = "Six engineering capabilities that add up to an autonomous fleet: perception, planning, platforms, dispatching, integration with facility infrastructure, and safety."
+
+[process_eyebrow]
+other = "Method"
+
+[process_title]
+other = "How we deploy autonomy"
+
+[process_lead]
+other = "We start with a bounded zone where autonomy pays back in 6–12 months, and only then scale it across the site."
+
+[contact_eyebrow]
+other = "Contact"
+
+[contact_title]
+other = "Tell us where you want to deploy robots"
+
+[contact_text]
+other = "A warehouse, a production area, a distribution center or last-mile delivery. Describe the site and the task — we will come back with a realistic assessment of a pilot."
+
+[contact_button]
+other = "Write to us"
+
+[contact_note]
+other = "We reply within one business day. NDA on request."
+
+[error_title]
+other = "Page not found"
+
+[error_text]
+other = "The address may have changed during the site update. Start from the homepage or write to us directly."

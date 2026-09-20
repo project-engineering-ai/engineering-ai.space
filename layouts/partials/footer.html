@@ -1,0 +1,21 @@
+{{- $lang := site.Language.Lang -}}
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div>
+      <div class="brand" style="font-size:0.95rem;margin-bottom:6px;">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span>{{ site.Params.brand }}</span>
+      </div>
+      <div class="site-footer__meta">© {{ now.Year }} {{ site.Params.brand }} · <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></div>
+    </div>
+
+    <ul class="site-footer__nav">
+      {{- range (index site.Menus "main") -}}
+        {{- if eq .Params.lang $lang -}}
+          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{- end -}}
+      {{- end -}}
+      <li><a href="/sitemap.xml">sitemap</a></li>
+    </ul>
+  </div>
+</footer>

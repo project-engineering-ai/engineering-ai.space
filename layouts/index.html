@@ -1,0 +1,119 @@
+{{- /* ===================================================================
+       Главная страница: hero → направления → процесс → контакты.
+
+       Тексты берутся из:
+         • front matter content/_index.md  — hero, чипсы, лог деплоя;
+         • data/services.yaml, data/process.yaml — списки с ключами ru/en
+           (data в Hugo не зависит от языка, поэтому выбираем по $lang);
+         • i18n/<lang>.toml — подписи интерфейса.
+       =================================================================== */ -}}
+{{ define "main" }}
+{{- $lang := site.Language.Lang -}}
+{{- $services := index hugo.Data.services $lang -}}
+{{- $process := index hugo.Data.process $lang -}}
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div>
+      <span class="eyebrow">{{ site.Params.brand }}</span>
+      <h1>{{ .Params.hero_title }}</h1>
+      <p class="lead">{{ .Params.hero_lead }}</p>
+
+      {{ with .Params.chips }}
+      <ul class="chips">
+        {{ range . }}<li class="chip">{{ . }}</li>{{ end }}
+      </ul>
+      {{ end }}
+
+      <div class="btn-row">
+        <a class="btn btn--primary" href="#contact">{{ i18n "hero_cta_primary" }}</a>
+        <a class="btn btn--ghost" href="#services">{{ i18n "hero_cta_secondary" }}</a>
+      </div>
+    </div>
+
+    {{ with .Params.terminal }}
+    <div class="terminal">
+      <div class="terminal__head">
+        <span class="terminal__dots" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="terminal__title">{{ $.Params.terminal_title | default "fleet-deploy.log" }}</span>
+      </div>
+      <div class="terminal__body">
+        {{ range . }}
+          {{- $class := "terminal__line" -}}
+          {{- if hasPrefix . "$" }}{{ $class = "terminal__line terminal__line--cmd" }}{{ end -}}
+          {{- if hasPrefix . "✓" }}{{ $class = "terminal__line terminal__line--ok" }}{{ end -}}
+          <span class="{{ $class }}">{{ . }}</span>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">{{ i18n "services_eyebrow" }}</span>
+      <h2>{{ i18n "services_title" }}</h2>
+      <p class="lead">{{ i18n "services_lead" }}</p>
+    </div>
+
+    <div class="grid-3">
+      {{ range $i, $s := $services }}
+      <article class="card">
+        <span class="card__index">{{ printf "%02d" (add $i 1) }}</span>
+        <h3>{{ $s.title }}</h3>
+        <p>{{ $s.text }}</p>
+        {{ with $s.tags }}
+        <div class="card__tags">{{ range . }}<span>{{ . }}</span>{{ end }}</div>
+        {{ end }}
+      </article>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="process">
+  <div class="container">
+    <div class="section__head">
+      <span class="eyebrow">{{ i18n "process_eyebrow" }}</span>
+      <h2>{{ i18n "process_title" }}</h2>
+      <p class="lead">{{ i18n "process_lead" }}</p>
+    </div>
+
+    <div class="steps">
+      {{ range $process }}
+      <div class="step">
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{ with .Content }}
+<section class="section">
+  <div class="container prose">{{ . }}</div>
+</section>
+{{ end }}
+
+<section class="section" id="contact">
+  <div class="container">
+    <div class="cta">
+      <div>
+        <span class="eyebrow">{{ i18n "contact_eyebrow" }}</span>
+        <h2>{{ i18n "contact_title" }}</h2>
+        <p>{{ i18n "contact_text" }}</p>
+        <ul class="contact-list" style="margin-top:18px">
+          <li><span class="contact-list__key">email</span><a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></li>
+        </ul>
+      </div>
+      <div class="cta__action">
+        <a class="btn btn--primary" href="mailto:{{ site.Params.email }}">{{ i18n "contact_button" }}</a>
+        <span class="muted" style="font-size:.88rem">{{ i18n "contact_note" }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

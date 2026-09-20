@@ -1,0 +1,38 @@
+{{- /* Шапка: бренд, меню текущего языка, переключатель языка, тема. */ -}}
+{{- $lang := site.Language.Lang -}}
+{{- $path := .RelPermalink -}}
+{{- $to := $path -}}
+{{- if eq $lang "en" -}}{{- $to = strings.TrimPrefix "/en" $path -}}{{- else -}}{{- $to = printf "/en%s" $path -}}{{- end -}}
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="{{ if eq $lang "en" }}/en/{{ else }}/{{ end }}" aria-label="{{ site.Params.brand }}">
+      <span class="brand__mark" aria-hidden="true"></span>
+      <span>{{ site.Params.brand }}</span>
+    </a>
+
+    <nav class="nav" id="site-nav" data-open="false" aria-label="{{ i18n "main_navigation" }}">
+      {{- range (index site.Menus "main") -}}
+        {{- if eq .Params.lang $lang -}}
+          <a class="nav__link" href="{{ .URL }}">{{ .Name }}</a>
+        {{- end -}}
+      {{- end -}}
+    </nav>
+
+    <div class="header-actions">
+      <a class="icon-btn lang-switch" href="{{ $to }}" data-lang-switch="force"
+         hreflang="{{ cond (eq $lang "ru") "en" "ru" }}"
+         title="{{ i18n "switch_language" }}">{{ site.Params.langSwitchLabel }}</a>
+
+      <button class="icon-btn" type="button" data-theme-toggle
+              aria-label="{{ i18n "toggle_theme" }}" title="{{ i18n "toggle_theme" }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 13.2A9.6 9.6 0 1 1 10.8 2.4a7.8 7.8 0 0 0 10.8 10.8Z"/></svg>
+      </button>
+
+      <button class="icon-btn nav-toggle" type="button" data-nav-toggle
+              aria-controls="site-nav" aria-expanded="false" aria-label="{{ i18n "toggle_menu" }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>

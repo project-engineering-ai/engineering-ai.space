@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://engineering-ai.space/sitemap.xml

@@ -1,0 +1,36 @@
+<!doctype html>
+{{/* Шаблон только для служебной страницы: в Hugo шаблон 404.html не проходит
+     через baseof, поэтому <head> выводим явно. Метаданные берём из того же
+     partials/head.html, но с noindex — служебная страница не должна попадать
+     в индекс (в robots.txt её поэтому не закрываем через Disallow). */}}
+<html lang="{{ site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, follow">
+  <title>{{ i18n "error_title" }} — {{ site.Params.brand }}</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;500&family=Roboto+Slab:wght@400;500&family=Ubuntu+Mono&display=swap">
+  {{- $css := resources.Get "scss/main.scss" | css.Sass (dict "outputStyle" "compressed") | resources.Fingerprint -}}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  {{- $js := resources.Get "js/main.js" | resources.Minify | resources.Fingerprint }}
+  <script defer src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+</head>
+<body>
+  {{ partial "header.html" . }}
+  <main id="main">
+    <div class="error-page">
+      <div class="container">
+        <div class="error-page__code">404</div>
+        <h1>{{ i18n "error_title" }}</h1>
+        <p>{{ i18n "error_text" }}</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="{{ if eq site.Language.Lang "en" }}/en/{{ else }}/{{ end }}">{{ i18n "home" }}</a>
+          <a class="btn btn--ghost" href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  {{ partial "footer.html" . }}
+</body>
+</html>

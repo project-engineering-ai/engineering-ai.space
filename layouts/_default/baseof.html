@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{{/* Язык документа берём из языка сайта (ru|en) — от него зависит и гео-роутинг. */}}
+<html lang="{{ site.Language.Lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{/* Ссылка «к содержимому»: видна только при фокусе с клавиатуры. */}}
+  <a class="skip-link" href="#main">{{ i18n "skip_to_content" }}</a>
+
+  {{ partial "header.html" . }}
+
+  <main id="main">
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  {{ partial "footer.html" . }}
+
+  <script defer src="{{ (resources.Get "js/main.js" | resources.Minify | resources.Fingerprint).RelPermalink }}"
+          integrity="{{ (resources.Get "js/main.js" | resources.Minify | resources.Fingerprint).Data.Integrity }}"></script>
+</body>
+</html>

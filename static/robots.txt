@@ -1,0 +1,8 @@
+# robots.txt — отдаётся из static/ как есть (enableRobotsTXT = false в hugo.toml,
+# чтобы шаблон Hugo не перезаписал эту версию с явным Sitemap).
+User-agent: *
+Allow: /
+
+# 404 закрыт тегом noindex в самой странице (meta robots) — в robots.txt
+# Disallow не ставим: он мешает роботу увидеть этот noindex.
+Sitemap: https://engineering-ai.space/sitemap.xml
