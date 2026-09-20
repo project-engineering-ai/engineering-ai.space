@@ -50,20 +50,15 @@
     return h || null;
   }
 
-  /* Пересчёт абсолютного href в относительный от текущего документа.
-     Нужно из-за <base href> (project-ai.site) и для работы из file://. */
-  function relPath(href) {
+  /* Цель редиректа приводим к корне-абсолютному пути документа.
+     Важно: на части сайтов стоит <base href>, и относительные ссылки
+     разрешаются от него, а не от текущего URL, — абсолютный путь от base
+     не зависит. Домены здесь обслуживаются из корня (кастомные домены). */
+  function absPath(href) {
     var u;
     try { u = new URL(href, location.href); } catch (e) { return href; }
-    if (u.origin !== location.origin) return href;      // чужой домен — как есть
-    var cur = location.pathname.split('/'); cur.pop();  // каталог текущего документа
-    var tgt = u.pathname.split('/');
-    var i = 0;
-    while (i < cur.length && i < tgt.length - 1 && cur[i] === tgt[i]) i++;
-    var parts = [];
-    for (var j = i; j < cur.length; j++) parts.push('..');
-    for (var k = i; k < tgt.length; k++) parts.push(tgt[k]);
-    return (parts.join('/') || './') + (u.search || '') + (u.hash || '');
+    if (u.origin !== location.origin) return u.href;    // чужой домен — целиком
+    return u.pathname + (u.search || '') + (u.hash || '');
   }
 
   /* Запасной расчёт «дома» языка, если на странице нет hreflang. */
@@ -85,10 +80,10 @@
     var alt = altHref(lang);
     if (alt) {
       if (lang === currentLang()) return null;         // уже на нужном языке
-      return relPath(alt);
+      return absPath(alt);
     }
     if (lang === currentLang()) return null;
-    return homeHref(lang);
+    return absPath(homeHref(lang));
   }
 
   /* ---- сигналы ---------------------------------------------------------- */
