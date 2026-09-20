@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
-"""Idempotent Yandex.Metrika injector, runs in CI before Pages deploy.
+"""Idempotent Yandex.Metrika + geo-lang injector, runs in CI before Pages deploy.
 
-Inserts (1) the Metrika counter block and (2) the contact_click reachGoal
-listener into every HTML file under ROOT that misses them. This makes the
-tracking survive any future static-site regeneration committed to the repo.
+Inserts into every HTML file under ROOT that misses them:
+  1) the Metrika counter block,
+  2) the contact_click reachGoal listener,
+  3) the geo-localization script tag (skipped for excluded files, e.g. 404.html:
+     a language redirect there would replace an honest 404 with the homepage).
 
-Usage: python3 scripts/inject_metrika.py --cid 112548630 --root _site [--dry-run]
+This makes both the tracking and the language routing survive any future
+static-site regeneration committed to the repo.
+
+Usage: python3 scripts/inject_metrika.py --cid 112548629 --root . [--dry-run]
 """
 import argparse
 import pathlib
-import re
 import sys
 
 METRIKA_TMPL = """<!-- Yandex.Metrika counter -->
@@ -33,13 +37,18 @@ METRIKA_TMPL = """<!-- Yandex.Metrika counter -->
 
 LISTENER_TMPL = (
     '<script>document.addEventListener("click",function(e){'
-    "var a=e.target&&e.target.closest?e.target.closest('a[href^=\\\"mailto:\\\"],a[href^=\\\"tel:\\\"]'):null;"
+    "var a=e.target&&e.target.closest?e.target.closest('a[href^=\\\\\\\"mailto:\\\\\\\"],a[href^=\\\\\\\"tel:\\\\\\\"]'):null;"
     'if(a&&window.ym){try{ym(__CID__,"reachGoal","contact_click");}catch(_){}}}'
     '},true);</script>'
 )
 
+GEO_TAG = '<script defer src="/geo-lang.js"></script>'
 
-def inject(html: str, cid: int):
+# Эти файлы не получают редирект по языку (служебные/верификационные).
+GEO_EXCLUDE = ("404.html",)
+
+
+def inject(html: str, cid: int, geo_ok: bool = True):
     changed = False
     cid = str(cid)
     if "mc.yandex.ru/watch" not in html:
@@ -48,6 +57,10 @@ def inject(html: str, cid: int):
         block = ""
     listener = LISTENER_TMPL.replace("__CID__", cid)
     need_listener = "contact_click" not in html and "</head>" in html
+    need_geo = geo_ok and "geo-lang.js" not in html and "</head>" in html
+    if need_geo:
+        block += GEO_TAG + "\n"
+        changed = True
 
     if not block and not need_listener:
         return html, False
@@ -74,12 +87,12 @@ def main():
     touched = 0
     for f in files:
         text = f.read_text(encoding="utf-8", errors="replace")
-        new, changed = inject(text, args.cid)
+        new, changed = inject(text, args.cid, geo_ok=not any(f.match(p) for p in GEO_EXCLUDE))
         if changed:
             touched += 1
             print(("DRY " if args.dry_run else "INJECT ") + str(f))
             if not args.dry_run:
-                f.write_text(new, encoding="utf-8")
+                f.write_text(new, encoding="utf-8", newline="")
     print(f"scanned={len(files)} injected={touched}")
     return 0
 
