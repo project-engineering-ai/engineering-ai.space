@@ -3,7 +3,7 @@
   <div class="container site-footer__inner">
     <div>
       <div class="brand" style="font-size:0.95rem;margin-bottom:6px;">
-        <span class="brand__mark" aria-hidden="true"></span>
+        {{ partial "brand-logo.html" (dict "size" 24) }}
         <span>{{ site.Params.brand }}</span>
       </div>
       <div class="site-footer__meta">© {{ now.Year }} {{ site.Params.brand }} · <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a></div>

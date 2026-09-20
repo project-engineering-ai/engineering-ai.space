@@ -214,45 +214,23 @@ p { margin: 0 0 16px; }
   white-space: nowrap;
 }
 .brand:hover { text-decoration: none; }
-/* Знак бренда: рамка с угловыми визирами и точкой в центре. Та же форма,
-   что у favicon (scripts/make_icons.py) — иконка во вкладке и логотип в шапке
-   обязаны совпадать, иначе бренд «двоится». */
-.brand__mark {
-  display: inline-block;
-  width: 26px;
-  height: 26px;
-  border: 1.5px solid var(--primary);
-  border-radius: 6px;
-  position: relative;
+/* Логотип бренда: фирменный знак (синий круг с гексагоном), инлайновый SVG
+   из partials/brand-logo.html. Цвета — через переменные, чтобы знак читался
+   и в светлой, и в тёмной теме: */
+:root {
+  --brand-logo-bg: #09348b;      /* #09348B — фирменный синий логотипа */
+  --brand-logo-fg: #ffffff;
+}
+/* В тёмной теме заливка круга светлеет: тёмно-синий на почти чёрном фоне
+   проваливается по контрасту, а сам знак остаётся белым. */
+.theme--dark {
+  --brand-logo-bg: #2f6bff;
+}
+
+.brand__logo {
+  display: block;
   flex: 0 0 auto;
-}
-
-/* Четыре угловых визира: по одному псевдоэлементу на угол.
-   Внутренние линии делаем через background-image, чтобы не заводить лишние
-   элементы в разметке ради декора. */
-.brand__mark::before,
-.brand__mark::after {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  background:
-    linear-gradient(var(--primary), var(--primary)) 0 0 / 6px 1.5px no-repeat,
-    linear-gradient(var(--primary), var(--primary)) 0 0 / 1.5px 6px no-repeat,
-    linear-gradient(var(--primary), var(--primary)) 100% 0 / 6px 1.5px no-repeat,
-    linear-gradient(var(--primary), var(--primary)) 100% 0 / 1.5px 6px no-repeat,
-    linear-gradient(var(--primary), var(--primary)) 0 100% / 6px 1.5px no-repeat,
-    linear-gradient(var(--primary), var(--primary)) 0 100% / 1.5px 6px no-repeat,
-    linear-gradient(var(--primary), var(--primary)) 100% 100% / 6px 1.5px no-repeat,
-    linear-gradient(var(--primary), var(--primary)) 100% 100% / 1.5px 6px no-repeat;
-}
-
-/* Центральная точка — «цель калибровки». */
-.brand__mark::after {
-  inset: 50% auto auto 50%;
-  width: 4px;
-  height: 4px;
-  background: var(--primary);
-  transform: translate(-50%, -50%);
+  border-radius: 50%;
 }
 
 .nav {

@@ -7,7 +7,7 @@
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="brand" href="{{ if eq $lang "en" }}/en/{{ else }}/{{ end }}" aria-label="{{ site.Params.brand }}">
-      <span class="brand__mark" aria-hidden="true"></span>
+      {{ partial "brand-logo.html" (dict "size" 28) }}
       <span>{{ site.Params.brand }}</span>
     </a>
 
