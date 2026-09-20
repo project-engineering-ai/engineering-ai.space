@@ -55,7 +55,10 @@ jobs:
           test -f public/index.html || { echo "::error::public/index.html missing — RU home not built"; exit 1; }
           test -f public/en/index.html || { echo "::error::public/en/index.html missing — EN home not built"; exit 1; }
           grep -q "112548629" public/index.html || { echo "::error::Yandex.Metrika counter missing"; exit 1; }
-          grep -q 'hreflang="en"' public/index.html || { echo "::error::hreflang trio missing"; exit 1; }
+          # --minify убирает кавычки у атрибутов, поэтому шаблон без них:
+          # grep -q 'hreflang="en"' здесь даёт ложное срабатывание на валидном HTML.
+          grep -qE 'hreflang="?en"?' public/index.html || { echo "::error::hreflang trio missing"; exit 1; }
+          grep -qE 'rel=canonical' public/index.html || { echo "::error::canonical missing"; exit 1; }
           echo "artifact OK: $(find public -type f | wc -l) files"
 
       - name: Setup Pages
