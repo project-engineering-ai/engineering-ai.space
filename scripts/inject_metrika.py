@@ -38,7 +38,7 @@ METRIKA_TMPL = """<!-- Yandex.Metrika counter -->
 LISTENER_TMPL = (
     '<script>document.addEventListener("click",function(e){'
     "var a=e.target&&e.target.closest?e.target.closest('a[href^=\\\\\\\"mailto:\\\\\\\"],a[href^=\\\\\\\"tel:\\\\\\\"]'):null;"
-    'if(a&&window.ym){try{ym(__CID__,"reachGoal","contact_click");}catch(_){}}}'
+    'if(a&&window.ym){try{ym(__CID__,"reachGoal","contact_click");}catch(_){}}'
     '},true);</script>'
 )
 

@@ -36,11 +36,11 @@
   var SEG = location.pathname.split('/').filter(Boolean);
   function pathIsEn() { return SEG[0] === 'en'; }   // EN всегда смонтирован в /en/
 
+  /* RU живёт в корне домена, EN — под /en/. Атрибут <html lang> намеренно НЕ
+     используем: на части страниц он проставлен неверно (напр. lang=en-us на
+     RU-страницах project-ai.site) и дал бы петлю редиректа. */
   function currentLang() {
-    if (pathIsEn()) return 'en';
-    var htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
-    if (htmlLang.indexOf('en') === 0) return 'en';  // запасной сигнал (Hugo/статика)
-    return 'ru';
+    return pathIsEn() ? 'en' : 'ru';
   }
 
   /* ---- ссылки: берём парную страницу из hreflang (авторитетно) ---------- */
